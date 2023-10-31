@@ -3,4 +3,4 @@
 # Version of the package
 __version__ = "0.1.0"
 
-from FastLexRank.FastLexRank import FastLexRankSummarizer
+from .FastLexRank import FastLexRankSummarizer
