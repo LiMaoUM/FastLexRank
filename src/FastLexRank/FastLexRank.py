@@ -40,12 +40,14 @@ class FastLexRankSummarizer:
         similarity_matrix = np.inner(embeddings, embeddings)
         return similarity_matrix
 
-    def get_lexrank_scores(self, similarity_matrix: np.ndarray) -> np.ndarray:
+    def get_lexrank_scores(self) -> np.ndarray:
         """
         Calculate the LexRank score for each sentence
         :param similarity_matrix: cosine similarity matrix
         :return: LexRank scores
         """
+        embeddings = self._get_sentence_embeddings()
+        similarity_matrix = self._get_similarity_matrix(embeddings)
         if self.threshold:
             similarity_matrix[similarity_matrix < self.threshold] = 0
 
@@ -74,9 +76,8 @@ class FastLexRankSummarizer:
         :param n: number of sentences to return
         :return: list of sentences with the highest LexRank score
         """
-        embeddings = self._get_sentence_embeddings()
-        similarity_matrix = self._get_similarity_matrix(embeddings)
-        lexrank_scores = self._get_lexrank_scores(similarity_matrix)
+
+        lexrank_scores = self.get_lexrank_scores()
         top_sentences = self._get_top_sentences(lexrank_scores, n)
         return [self.corpus[i] for i in top_sentences]
 
