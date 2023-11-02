@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastlexrank"
-version = "0.1.1"
+version = "0.1.3"
 description = "A streamlined and approximate implementation of the LexRank algorithm for rapid text summarization."
 authors = ["Mao Li <maolee@umich.edu>",
            "Johann Gagnon-Bartsch <johanngb@umich.edu>"]
