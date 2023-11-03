@@ -9,5 +9,5 @@ However, a key challenge with the original LexRank algorithm is its dependence o
 To address this issue, we introduce an approximate approach that efficiently computes a score for each sentence while retaining the essential characteristic of relative centrality. Our modified method offers significant speed improvements in LexRank calculations and delivers reliable results.
 
 ## Reference
-<a id="1">[1]</a> 
+<a id="1">[1]</a>
 Erkan, G., & Radev, D. R. (2004). **Lexrank: Graph-based lexical centrality as salience in text summarization**. *Journal of artificial intelligence research*, 22, 457-479.

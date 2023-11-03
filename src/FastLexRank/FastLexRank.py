@@ -4,6 +4,7 @@ from sentence_transformers.util import cos_sim
 import numpy as np
 import torch
 
+
 class FastLexRankSummarizer:
     """
     Calculate the LexRank score for each sentence in the corpus and return the top sentences using a fast implementation.
@@ -20,7 +21,7 @@ class FastLexRankSummarizer:
     ) -> None:
         self.model_path = model_path
         self.threshold = threshold
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = SentenceTransformer(self.model_path, device=self.device)
 
     def _get_sentence_embeddings(self, corpus: list[str]) -> np.ndarray:
