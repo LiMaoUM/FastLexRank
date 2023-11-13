@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from sentence_transformers import SentenceTransformer
-from sentence_transformers.util import cos_sim
 import numpy as np
 import torch
 
@@ -32,30 +31,17 @@ class FastLexRankSummarizer:
         embeddings = self.model.encode(corpus)
         return embeddings
 
-    def _get_similarity_matrix(self, embeddings: np.ndarray) -> np.ndarray:
-        """
-        Calculate the cosine similarity between all sentences
-        :param embeddings: sentence embeddings
-        :return: cosine similarity matrix
-        """
-        similarity_matrix = cos_sim(embeddings, embeddings)
-        return similarity_matrix
-
     def get_lexrank_scores(self, corpus: list[str]) -> np.ndarray:
         """
         Calculate the LexRank score for each sentence
         :return: LexRank scores
         """
         embeddings = self._get_sentence_embeddings(corpus)
-        similarity_matrix = self._get_similarity_matrix(embeddings)
-        similarity_matrix = np.array(similarity_matrix.cpu())
-        if self.threshold:
-            similarity_matrix[similarity_matrix < self.threshold] = 0
 
         # Transpose the similarity matrix
-        F = similarity_matrix.T
+        F = embeddings.T
         # Normalize the similarity matrix
-        z = similarity_matrix.sum(axis=0)
+        z = embeddings.sum(axis=0)
         z = z / np.sqrt((z**2).sum(axis=0))
         # Calculate the LexRank scores
         approx_scores = np.dot(z.T, F)
